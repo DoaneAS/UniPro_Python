@@ -67,6 +67,12 @@ def parse_uniprot(uni_txt):
                 ids = [w[:-1] for w in words[1:]]
                 entry['refseq'].extend(ids)
 
+        if tag == "DE":
+            #if "RecName" in words[0]:
+            if 'full_name' not in entry:
+                fid = [w.replace("Full=", " ") for w in words[1:]]
+            entry['full_name']= [" ".join(fid[0:])]
+
     return metadata_by_acc
 
 
