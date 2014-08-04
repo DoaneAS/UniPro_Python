@@ -5,11 +5,11 @@ import argparse
 url = 'http://www.uniprot.org/'
 
 
-
 def get_parts(uni_txt):
     for line in uni_txt.splitlines():
         k, v = [line[:5].strip(), line[5:].strip()]
         return k, v.split()
+
 
 def parse_uniprot(uni_txt):
     """Parse metadata text from uniprot.org
@@ -19,7 +19,7 @@ def parse_uniprot(uni_txt):
     uniprot_id = None
     metadata_by_acc = {}
     tag = None
-    #with get_parts
+    # with get_parts
     for l in uni_txt.splitlines():
         ttag = l[:5].strip()
         if ttag and ttag != tag:
@@ -68,10 +68,10 @@ def parse_uniprot(uni_txt):
                 entry['refseq'].extend(ids)
 
         if tag == "DE":
-            #if "RecName" in words[0]:
+            # if "RecName" in words[0]:
             if 'full_name' not in entry:
                 fid = [w.replace("Full=", " ") for w in words[1:]]
-            entry['full_name']= [" ".join(fid[0:])]
+            entry['full_name'] = [" ".join(fid[0:])]
 
     return metadata_by_acc
 
@@ -94,10 +94,9 @@ def pull_uni(ids, format='txt'):
     responses = [
         requests.post(url + tool, data=data, files={'file': ' '.join(query)}) for query in queries]
     uni_txt = ''.join([response.text for response in responses])
-    #return uni_txt
+    # return uni_txt
     res = parse_uniprot(uni_txt)
     return res
-
 
 
 import sys
