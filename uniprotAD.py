@@ -101,3 +101,7 @@ if __name__ == '__main__':
     ids = ['P01116', 'P15056']
     res = pull_uni(ids)
     pprint.pprint(res)
+    import json
+    json.dump(res, fp=open('uniprot_result.txt', 'w'), indent=4)
+    json.dump(res, fp=open('uniprot_result.json', 'w'), indent=4)
+    print json.dumps(res, sort_keys=True, indent=4, separators=(',', ': '))
